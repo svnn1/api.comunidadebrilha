@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn() => "Welcome");
 Route::group(['prefix' => 'auth'], function () {
   Route::post('/login', [Auth\LoginController::class, 'login'])->name('login');
 
@@ -34,3 +34,10 @@ Route::group(['prefix' => 'auth'], function () {
   });
 });
 
+Route::group(['prefix' => 'users', 'as' => 'user.', 'middleware' => 'auth:api'], function () {
+  Route::get('/', [Admin\UserController::class, 'index'])->name('index');
+  Route::post('/', [Admin\UserController::class, 'store'])->name('store');
+  Route::get('/{userId}', [Admin\UserController::class, 'show'])->name('show');
+  Route::match(['patch', 'put'], '/{userId}', [Admin\UserController::class, 'update'])->name('update');
+  Route::delete('/{userId}', [Admin\UserController::class, 'destroy'])->name('destroy');
+});
