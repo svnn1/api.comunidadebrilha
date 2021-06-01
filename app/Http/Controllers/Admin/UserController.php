@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -24,7 +23,7 @@ class UserController extends Controller
 
   public function index(): JsonResponse
   {
-    $users =$this->userRepository->newQuery()->get();
+    $users = $this->userRepository->newQuery()->get();
 
     return response()->json([
       'data' => $users,
@@ -33,7 +32,11 @@ class UserController extends Controller
 
   public function store(StoreUserRequest $request): JsonResponse
   {
-    $user = $this->userRepository->create($request->validated());
+    $user = $this->userRepository->create([
+      'name'     => $request->get('name'),
+      'email'    => $request->get('email'),
+      'password' => bcrypt($request->get('password')),
+    ]);
 
     return response()->json([
       'data' => $user,
@@ -42,7 +45,7 @@ class UserController extends Controller
 
   public function show(string $userId): JsonResponse
   {
-    $user = User::find($userId);
+    $user = $this->userRepository->find($userId);
 
     return response()->json([
       'data' => $user,
@@ -58,5 +61,14 @@ class UserController extends Controller
     return response()->json([
       'data' => $user,
     ], Response::HTTP_OK);
+  }
+
+  public function destroy(string $userId): JsonResponse
+  {
+    $user = $this->userRepository->find($userId);
+
+    $this->userRepository->delete($user);
+
+    return response()->json([], Response::HTTP_NO_CONTENT);
   }
 }
