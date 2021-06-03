@@ -9,6 +9,11 @@ use App\Http\Requests\Admin\Users\StoreUserRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Contracts\Repositories\Admin\UserRepository;
 
+/**
+ * Class UserController
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class UserController extends Controller
 {
   /**
