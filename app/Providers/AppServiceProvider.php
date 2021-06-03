@@ -17,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
   {
     $this->app->bind(Contracts\BaseRepository::class, Repositories\BaseRepository::class);
     $this->app->bind(Contracts\Admin\UserRepository::class, Repositories\Admin\UserRepository::class);
+    $this->app->bind(Contracts\Admin\Acl\RoleRepository::class, Repositories\Admin\Acl\RoleRepository::class);
+    $this->app->bind(Contracts\Admin\Acl\PermissionRepository::class, Repositories\Admin\Acl\PermissionRepository::class);
   }
 
   /**
