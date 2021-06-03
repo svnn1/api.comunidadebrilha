@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -21,7 +20,7 @@ class ForgotPasswordController extends Controller
    */
   public function sendResetLinkEmail(ForgotPasswordRequest $request): JsonResponse
   {
-    //Users::$resetPasswordRoute = $request->get('url');
+    User::$resetPasswordRoute = $request->get('url');
 
     $response = Password::broker()->sendResetLink(
       $request->only('email')
@@ -29,7 +28,7 @@ class ForgotPasswordController extends Controller
 
     return $response == Password::RESET_LINK_SENT
       ? $this->sendResetLinkResponse($response)
-      : $this->sendResetLinkFailedResponse($request, $response);
+      : $this->sendResetLinkFailedResponse($response);
   }
 
   /**
@@ -51,12 +50,11 @@ class ForgotPasswordController extends Controller
   /**
    * Get the response for a failed password reset link.
    *
-   * @param \Illuminate\Http\Request $request
-   * @param string                   $response
+   * @param string $response
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function sendResetLinkFailedResponse(Request $request, string $response): JsonResponse
+  public function sendResetLinkFailedResponse(string $response): JsonResponse
   {
     return response()->json([
       'error' => [
