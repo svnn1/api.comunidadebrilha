@@ -3,14 +3,24 @@
 namespace App\Models;
 
 use App\Traits\GenerateUuid;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\Admin\Auth\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable implements JWTSubject
 {
-  use GenerateUuid, HasFactory, Notifiable;
+  use GenerateUuid, HasFactory, HasRoles, Notifiable;
+
+  /**
+   * Set reset password route
+   *
+   *
+   * @var string
+   */
+  public static string $resetPasswordRoute;
 
   /**
    * Indicates if the IDs are auto-incrementing.
@@ -79,5 +89,19 @@ class User extends Authenticatable implements JWTSubject
   public function getJWTCustomClaims(): array
   {
     return [];
+  }
+
+  /**
+   * Send the password reset notification.
+   *
+   * @param string $token
+   *
+   * @return void
+   */
+  public function sendPasswordResetNotification($token)
+  {
+    $link = str_replace('{token}', $token, self::$resetPasswordRoute);
+
+    $this->notify(new ResetPassword($link));
   }
 }
