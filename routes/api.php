@@ -34,10 +34,12 @@ Route::group(['prefix' => 'auth'], function () {
   });
 });
 
-Route::group(['prefix' => 'users', 'as' => 'user.', 'middleware' => 'auth:api'], function () {
-  Route::get('/', [Admin\UserController::class, 'index'])->name('index');
-  Route::post('/', [Admin\UserController::class, 'store'])->name('store');
-  Route::get('/{userId}', [Admin\UserController::class, 'show'])->name('show');
-  Route::match(['patch', 'put'], '/{userId}', [Admin\UserController::class, 'update'])->name('update');
-  Route::delete('/{userId}', [Admin\UserController::class, 'destroy'])->name('destroy');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api']], function () {
+  Route::group(['prefix' => 'users', 'as' => 'user.'], function () {
+    Route::get('/', [Admin\UserController::class, 'index'])->name('index');
+    Route::post('/', [Admin\UserController::class, 'store'])->name('store');
+    Route::get('/{userId}', [Admin\UserController::class, 'show'])->name('show');
+    Route::match(['patch', 'put'], '/{userId}', [Admin\UserController::class, 'update'])->name('update');
+    Route::delete('/{userId}', [Admin\UserController::class, 'destroy'])->name('destroy');
+  });
 });
