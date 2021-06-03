@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,7 +13,7 @@ use App\Contracts\Repositories\BaseRepository as BaseRepositoryContract;
  *
  * @package App\Repositories
  */
-class BaseRepository implements BaseRepositoryContract
+abstract class BaseRepository implements BaseRepositoryContract
 {
   /**
    * Model class for repository.
@@ -81,7 +82,7 @@ class BaseRepository implements BaseRepositoryContract
     $model = $this->newQuery();
 
     foreach ($where as $field => $value) {
-      if ($value instanceof \Closure) {
+      if ($value instanceof Closure) {
         $model = (!$or) ? $model->where($value) : $model->orWhere($value);
       } else if (is_array($value)) {
         if (count($value) === 3) {
