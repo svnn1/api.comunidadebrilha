@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -84,6 +85,15 @@ class Handler extends ExceptionHandler
     }
 
     if ($exception instanceof AuthorizationException) {
+      return response()->json([
+        'error' => [
+          'status'  => Response::HTTP_FORBIDDEN,
+          'message' => $exception->getMessage(),
+        ],
+      ], Response::HTTP_FORBIDDEN);
+    }
+
+    if ($exception instanceof UnauthorizedException) {
       return response()->json([
         'error' => [
           'status'  => Response::HTTP_FORBIDDEN,
