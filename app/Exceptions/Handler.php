@@ -167,7 +167,7 @@ class Handler extends ExceptionHandler
    * @param \Illuminate\Validation\ValidationException $exception
    * @param \Illuminate\Http\Request                   $request
    *
-   * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response|null
+   * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
    */
   protected function convertValidationExceptionToResponse(ValidationException $exception, $request)
   {
