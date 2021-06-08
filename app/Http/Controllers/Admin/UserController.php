@@ -28,7 +28,7 @@ class UserController extends Controller
 
   public function index(): JsonResponse
   {
-    $users = $this->userRepository->newQuery()->get();
+    $users = $this->userRepository->all();
 
     return response()->json([
       'data' => $users,

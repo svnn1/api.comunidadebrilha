@@ -14,6 +14,27 @@ use Illuminate\Database\Eloquent\Collection;
 interface BaseRepository
 {
   /**
+   * Retrieve all data.
+   *
+   * @param array $columns
+   *
+   * @return \Illuminate\Database\Eloquent\Collection
+   * @throws \Illuminate\Contracts\Container\BindingResolutionException
+   */
+  public function all(array $columns = ['*']): Collection;
+
+  /**
+   * Count results of the query.
+   *
+   * @param array  $where
+   * @param string $columns
+   *
+   * @return int
+   * @throws \Illuminate\Contracts\Container\BindingResolutionException
+   */
+  public function count(array $where = [], string $columns = '*'): int;
+
+  /**
    * Save a new model in database.
    *
    * @param array $data
@@ -55,7 +76,7 @@ interface BaseRepository
    * @return \Illuminate\Database\Eloquent\Builder
    * @throws \Illuminate\Contracts\Container\BindingResolutionException
    */
-  public function findWhere(array $where, bool $or = FALSE): Builder;
+  public function findWhere(array $where, bool $or = false): Builder;
 
   /**
    * Update a record in the database.
@@ -83,6 +104,7 @@ interface BaseRepository
    * @param \Illuminate\Database\Eloquent\Collection $collection
    *
    * @return void
+   * @throws \Exception
    */
   public function deleteCollection(Collection $collection): void;
 

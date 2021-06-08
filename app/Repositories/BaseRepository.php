@@ -23,6 +23,33 @@ abstract class BaseRepository implements BaseRepositoryContract
   protected string $model;
 
   /**
+   * Retrieve all data.
+   *
+   * @param array $columns
+   *
+   * @return \Illuminate\Database\Eloquent\Collection
+   * @throws \Illuminate\Contracts\Container\BindingResolutionException
+   */
+  public function all(array $columns = ['*']): Collection
+  {
+    return $this->newQuery()->get($columns);
+  }
+
+  /**
+   * Count results of the query.
+   *
+   * @param array  $where
+   * @param string $columns
+   *
+   * @return int
+   * @throws \Illuminate\Contracts\Container\BindingResolutionException
+   */
+  public function count(array $where = [], string $columns = '*'): int
+  {
+    return $this->findWhere($where)->count($columns);
+  }
+
+  /**
    * Save a new model.
    *
    * @param array $data
@@ -140,6 +167,7 @@ abstract class BaseRepository implements BaseRepositoryContract
    * @param \Illuminate\Database\Eloquent\Collection $collection
    *
    * @return void
+   * @throws \Exception
    */
   public function deleteCollection(Collection $collection): void
   {
