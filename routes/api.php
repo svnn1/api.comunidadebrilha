@@ -29,8 +29,8 @@ Route::group(['prefix' => 'auth'], function () {
   });
 
   Route::group(['prefix' => 'email', 'as' => 'verification.', 'middleware' => 'auth:api'], function () {
-    Route::get('/email/resend', [Auth\VerificationController::class, 'resend'])->name('resend');
-    Route::get('/email/verify/{userId}', [Auth\VerificationController::class, 'verify'])->name('verify');
+    Route::get('/resend', [Auth\VerificationController::class, 'resend'])->name('resend');
+    Route::get('/verify/{userId}', [Auth\VerificationController::class, 'verify'])->name('verify');
   });
 });
 
