@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Blog\Post;
 use App\Traits\GenerateUuid;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\Admin\Auth\ResetPassword;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -70,6 +72,16 @@ class User extends Authenticatable implements JWTSubject
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  /**
+   * Get all of the posts for the user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function posts(): HasMany
+  {
+    return $this->hasMany(Post::class);
+  }
 
   /**
    * Get the identifier that will be stored in the subject claim of the JWT.
