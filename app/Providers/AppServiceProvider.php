@@ -6,8 +6,27 @@ use App\Repositories as Repositories;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\Repositories as Contracts;
 
+/**
+ * Class AppServiceProvider
+ *
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
+  /**
+   * All of the container bindings that should be registered.
+   *
+   * @var array
+   */
+  public array $bindings = [
+    Contracts\BaseRepository::class                 => Repositories\BaseRepository::class,
+    Contracts\Admin\UserRepository::class           => Repositories\Admin\UserRepository::class,
+    Contracts\Admin\Acl\RoleRepository::class       => Repositories\Admin\Acl\RoleRepository::class,
+    Contracts\Admin\Acl\PermissionRepository::class => Repositories\Admin\Acl\PermissionRepository::class,
+    Contracts\Admin\Blog\PostRepository::class      => Repositories\Admin\Blog\PostRepository::class,
+    Contracts\Admin\Blog\TagRepository::class       => Repositories\Admin\Blog\TagRepository::class,
+  ];
+
   /**
    * Register any application services.
    *
@@ -15,10 +34,6 @@ class AppServiceProvider extends ServiceProvider
    */
   public function register()
   {
-    $this->app->bind(Contracts\BaseRepository::class, Repositories\BaseRepository::class);
-    $this->app->bind(Contracts\Admin\UserRepository::class, Repositories\Admin\UserRepository::class);
-    $this->app->bind(Contracts\Admin\Acl\RoleRepository::class, Repositories\Admin\Acl\RoleRepository::class);
-    $this->app->bind(Contracts\Admin\Acl\PermissionRepository::class, Repositories\Admin\Acl\PermissionRepository::class);
   }
 
   /**
@@ -28,6 +43,5 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    //
   }
 }
