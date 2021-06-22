@@ -15,7 +15,7 @@ class ResetPassword extends Notification
 {
   use Queueable;
 
-  protected string $link;
+  public string $link;
 
   /**
    * Create a new notification instance.
