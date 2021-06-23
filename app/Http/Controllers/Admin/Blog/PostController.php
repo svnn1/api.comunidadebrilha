@@ -58,7 +58,7 @@ class PostController extends Controller
   public function store(StorePostRequest $request): JsonResponse
   {
     $data = $request->validated();
-    $data['user_id'] = auth('api')->user()->id;
+    $data['user_id'] = auth('api')->id();
 
     $post = $this->postRepository->create($data);
 
