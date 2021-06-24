@@ -55,10 +55,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api'
       Route::match(['patch', 'put'], '/{postId}/status', [Admin\Blog\PostStatusController::class, 'update'])->name('status.update');
     });
 
-    Route::group(['prefix' => 'categories', 'as' => 'category.',], function () {
-      Route::get('/', [Admin\Blog\CategoryController::class, 'index'])->name('index');
-    });
-
     Route::group(['prefix' => 'tags', 'as' => 'tag.',], function () {
       Route::get('/', [Admin\Blog\TagController::class, 'index'])->name('index');
       Route::get('/{tagId}', [Admin\Blog\TagController::class, 'show'])->name('show');
