@@ -14,6 +14,14 @@ use App\Contracts\Repositories\BaseRepository;
 interface PostRepository extends BaseRepository
 {
   /**
+   * Create cover for post.
+   *
+   * @param \Illuminate\Http\Request            $request
+   * @param \Illuminate\Database\Eloquent\Model $post
+   */
+  public function createCover(Request $request, Model $post);
+
+  /**
    * @param \Illuminate\Http\Request            $request
    * @param \Illuminate\Database\Eloquent\Model $post
    */
