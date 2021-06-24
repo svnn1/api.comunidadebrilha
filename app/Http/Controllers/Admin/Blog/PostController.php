@@ -98,7 +98,7 @@ class PostController extends Controller
     $post = $this->postRepository->find($postId);
 
     $this->postRepository->update($post, $request->validated());
-    $this->postRepository->findOrCreateTagsAndSyncPost($request, $post);
+    $this->postRepository->findOrCreateTags($request, $post);
 
     return response()->json([
       'data' => $post,
