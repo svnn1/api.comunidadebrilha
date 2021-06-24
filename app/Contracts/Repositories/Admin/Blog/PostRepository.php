@@ -30,6 +30,14 @@ interface PostRepository extends BaseRepository
   public function addCover(Request $request, Model $model);
 
   /**
+   * Update cover for post.
+   *
+   * @param \Illuminate\Http\Request            $request
+   * @param \Illuminate\Database\Eloquent\Model $model
+   */
+  public function updateCover(Request $request, Model $model): void;
+
+  /**
    * @param \Illuminate\Http\Request            $request
    * @param \Illuminate\Database\Eloquent\Model $model
    */
