@@ -119,8 +119,10 @@ class PostController extends Controller
 
     $this->postRepository->delete($post);
 
-    if (isset($post->cover->url) || Storage::disk('public')->exists($post->cover->url)) {
+    if (isset($post->cover->url) && Storage::disk('public')->exists($post->cover->url)) {
       Storage::disk('public')->delete($post->cover->url);
+
+      $post->cover()->delete();
     }
 
     return response()->json([], Response::HTTP_NO_CONTENT);
