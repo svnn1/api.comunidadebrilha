@@ -24,6 +24,18 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
   protected string $model = Post::class;
 
   /**
+   * Add cover and tags for post.
+   *
+   * @param \Illuminate\Http\Request            $request
+   * @param \Illuminate\Database\Eloquent\Model $model
+   */
+  public function addCoverAndTags(Request $request, Model $model): void
+  {
+    $this->createCover($request, $model);
+    $this->findOrCreateTagsAndSyncPost($request, $model);
+  }
+
+  /**
    * Create cover for post.
    *
    * @param \Illuminate\Http\Request            $request

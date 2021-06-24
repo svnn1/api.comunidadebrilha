@@ -14,6 +14,14 @@ use App\Contracts\Repositories\BaseRepository;
 interface PostRepository extends BaseRepository
 {
   /**
+   * Add cover and tags for post.
+   *
+   * @param \Illuminate\Http\Request            $request
+   * @param \Illuminate\Database\Eloquent\Model $model
+   */
+  public function addCoverAndTags(Request $request, Model $model): void;
+
+  /**
    * Create cover for post.
    *
    * @param \Illuminate\Http\Request            $request

@@ -60,13 +60,9 @@ class PostController extends Controller
 
     $post = $this->postRepository->create($data);
 
-    $this->postRepository->createCover($request, $post);
+    $this->postRepository->addCoverAndTags($request, $post);
 
-    $this->postRepository->findOrCreateTagsAndSyncPost($request, $post);
-
-    $post = $post->load(['cover', 'tags']);
-
-    return (new PostResource($post))
+    return (new PostResource($post->load(['cover', 'tags'])))
       ->response()
       ->setStatusCode(Response::HTTP_CREATED);
   }
@@ -83,9 +79,9 @@ class PostController extends Controller
   {
     $post = $this->postRepository->find($postId);
 
-    return response()->json([
-      'data' => $post,
-    ], Response::HTTP_OK);
+    return (new PostResource($post->load(['cover', 'tags'])))
+      ->response()
+      ->setStatusCode(Response::HTTP_CREATED);
   }
 
   /**
