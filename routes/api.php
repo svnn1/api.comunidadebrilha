@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api'
 
 
       Route::match(['patch', 'put'], '/{postId}/status', [Admin\Blog\PostStatusController::class, 'update'])->name('status.update');
+
+      Route::post('/{postId}/cover', [Admin\Blog\PostCoverController::class, 'update'])->name('cover.update');
     });
 
     Route::group(['prefix' => 'tags', 'as' => 'tag.',], function () {
