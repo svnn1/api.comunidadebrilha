@@ -27,14 +27,14 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
    * Create cover for post.
    *
    * @param \Illuminate\Http\Request            $request
-   * @param \Illuminate\Database\Eloquent\Model $post
+   * @param \Illuminate\Database\Eloquent\Model $model
    */
-  public function createCover(Request $request, Model $post): void
+  public function createCover(Request $request, Model $model): void
   {
     if ($request->hasFile('cover')) {
       $cover = $request->file('cover')->store('blog/posts', 'public');
 
-      $post->cover()->create(['url' => $cover]);
+      $model->cover()->create(['url' => $cover]);
     }
   }
 
@@ -42,9 +42,9 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
    * Find or create new tags and sync with post.
    *
    * @param \Illuminate\Http\Request            $request
-   * @param \Illuminate\Database\Eloquent\Model $post
+   * @param \Illuminate\Database\Eloquent\Model $model
    */
-  public function findOrCreateTagsAndSyncPost(Request $request, Model $post): void
+  public function findOrCreateTagsAndSyncPost(Request $request, Model $model): void
   {
     if ($request->has('tags')) {
       $tags = [];
@@ -55,7 +55,7 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
         $tags[] = $data->id;
       }
 
-      $post->tags()->sync($tags);
+      $model->tags()->sync($tags);
     }
   }
 }

@@ -17,13 +17,13 @@ interface PostRepository extends BaseRepository
    * Create cover for post.
    *
    * @param \Illuminate\Http\Request            $request
-   * @param \Illuminate\Database\Eloquent\Model $post
+   * @param \Illuminate\Database\Eloquent\Model $model
    */
-  public function createCover(Request $request, Model $post);
+  public function createCover(Request $request, Model $model);
 
   /**
    * @param \Illuminate\Http\Request            $request
-   * @param \Illuminate\Database\Eloquent\Model $post
+   * @param \Illuminate\Database\Eloquent\Model $model
    */
-  public function findOrCreateTagsAndSyncPost(Request $request, Model $post): void;
+  public function findOrCreateTagsAndSyncPost(Request $request, Model $model): void;
 }
