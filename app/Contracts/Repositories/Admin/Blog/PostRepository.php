@@ -27,11 +27,11 @@ interface PostRepository extends BaseRepository
    * @param \Illuminate\Http\Request            $request
    * @param \Illuminate\Database\Eloquent\Model $model
    */
-  public function createCover(Request $request, Model $model);
+  public function addCover(Request $request, Model $model);
 
   /**
    * @param \Illuminate\Http\Request            $request
    * @param \Illuminate\Database\Eloquent\Model $model
    */
-  public function findOrCreateTagsAndSyncPost(Request $request, Model $model): void;
+  public function findOrCreateTags(Request $request, Model $model): void;
 }
