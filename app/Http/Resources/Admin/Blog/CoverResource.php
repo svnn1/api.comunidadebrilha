@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Admin\Blog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class CoverResource
  *
- * @package App\Http\Resources\Blog
+ * @package App\Http\Resources\Admin\Blog
  */
 class CoverResource extends JsonResource
 {

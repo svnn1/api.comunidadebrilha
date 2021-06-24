@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Admin\Blog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class PostTagResource
+ *
+ * @package App\Http\Resources\Admin\Blog
+ */
 class PostTagResource extends JsonResource
 {
   /**
@@ -19,7 +24,7 @@ class PostTagResource extends JsonResource
       'id'    => (string) $this->id,
       'name'  => (string) $this->name,
       'links' => [
-        'self' => route('blog.tag.show', $this->id),
+        'self' => route('admin.blog.tag.show', $this->id),
       ],
     ];
   }

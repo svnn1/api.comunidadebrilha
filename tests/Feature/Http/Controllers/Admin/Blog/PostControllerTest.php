@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\Admin\Blog;
+namespace Tests\Feature\Http\Controllers\Admin\Blog;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -8,7 +8,6 @@ use App\Models\Blog\Tag;
 use App\Models\Blog\Post;
 use App\Models\Blog\Image;
 use Illuminate\Http\UploadedFile;
-use App\Enums\Admin\Blog\PostEnum;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -28,7 +27,7 @@ class PostControllerTest extends TestCase
 
     $this->actingAs($user, 'api');
 
-    $this->get(route('blog.post.index'))->assertOk();
+    $this->get(route('admin.blog.post.index'))->assertOk();
   }
 
   public function testCanCreateAPost(): void
@@ -39,7 +38,7 @@ class PostControllerTest extends TestCase
 
     $this->actingAs($user, 'api');
 
-    $this->post(route('blog.post.store'), $data = [
+    $this->post(route('admin.blog.post.store'), $data = [
       'title'   => $this->faker->title,
       'summary' => $this->faker->sentence,
       'content' => $this->faker->paragraph,
@@ -64,7 +63,7 @@ class PostControllerTest extends TestCase
       ->has(Tag::factory(), 'tags')
       ->create();
 
-    $this->get(route('blog.post.show', $post->id))->assertOk();
+    $this->get(route('admin.blog.post.show', $post->id))->assertOk();
   }
 
   public function testCanUpdatePost(): void
@@ -78,7 +77,7 @@ class PostControllerTest extends TestCase
       ->has(Tag::factory(), 'tags')
       ->create();
 
-    $this->patch(route('blog.post.update', $post->id), $data = [
+    $this->patch(route('admin.blog.post.update', $post->id), $data = [
       'title' => $this->faker->title,
     ])->assertOk();
 
@@ -95,84 +94,6 @@ class PostControllerTest extends TestCase
 
     $post = Post::factory()->has(Image::factory(), 'cover')->create();
 
-    $this->delete(route('blog.post.destroy', $post->id))->assertNoContent();
-  }
-
-  public function testICanUpdateStatusForApprovedPost(): void
-  {
-    $user = User::factory()->create();
-
-    $this->actingAs($user, 'api');
-
-    $post = Post::factory()->create();
-
-    $this->patch(route('blog.post.updateStatus', $post->id), [
-      'status' => PostEnum::APPROVED,
-    ])->assertOk();
-  }
-
-  public function testICanUpdateStatusForArchivedPost(): void
-  {
-    $user = User::factory()->create();
-
-    $this->actingAs($user, 'api');
-
-    $post = Post::factory()->create();
-
-    $this->patch(route('blog.post.updateStatus', $post->id), [
-      'status' => PostEnum::ARCHIVED,
-    ])->assertOk();
-  }
-
-  public function testICanUpdateStatusForDraftedPost(): void
-  {
-    $user = User::factory()->create();
-
-    $this->actingAs($user, 'api');
-
-    $post = Post::factory()->create();
-
-    $this->patch(route('blog.post.updateStatus', $post->id), [
-      'status' => PostEnum::DRAFTED,
-    ])->assertOk();
-  }
-
-  public function testICanUpdateStatusForPublishedPost(): void
-  {
-    $user = User::factory()->create();
-
-    $this->actingAs($user, 'api');
-
-    $post = Post::factory()->create();
-
-    $this->patch(route('blog.post.updateStatus', $post->id), [
-      'status' => PostEnum::PUBLISHED,
-    ])->assertOk();
-  }
-
-  public function testICanUpdateStatusForRejectedPost(): void
-  {
-    $user = User::factory()->create();
-
-    $this->actingAs($user, 'api');
-
-    $post = Post::factory()->create();
-
-    $this->patch(route('blog.post.updateStatus', $post->id), [
-      'status' => PostEnum::REJECTED,
-    ])->assertOk();
-  }
-
-  public function testICanUpdateStatusForSubmittedPost(): void
-  {
-    $user = User::factory()->create();
-
-    $this->actingAs($user, 'api');
-
-    $post = Post::factory()->create();
-
-    $this->patch(route('blog.post.updateStatus', $post->id), [
-      'status' => PostEnum::SUBMITTED,
-    ])->assertOk();
+    $this->delete(route('admin.blog.post.destroy', $post->id))->assertNoContent();
   }
 }

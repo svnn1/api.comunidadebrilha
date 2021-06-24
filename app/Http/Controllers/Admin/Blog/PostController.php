@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use App\Enums\Admin\Blog\PostEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\Blog\PostResource;
+use App\Http\Resources\Admin\Blog\PostResource;
 use App\Http\Requests\Admin\Blog\Post\StorePostRequest;
 use App\Http\Requests\Admin\Blog\Post\UpdatePostRequest;
 use App\Contracts\Repositories\Admin\Blog\PostRepository;
-use App\Http\Requests\Admin\Blog\Post\UpdateStatusPostRequest;
 
 /**
  * Class PostController
@@ -38,7 +36,7 @@ class PostController extends Controller
    */
   public function index(): JsonResponse
   {
-    $posts = $this->postRepository->newQuery()->with([
+    $posts = $this->postRepository->withRelationships([
       'author', 'cover', 'tags',
     ])->paginate();
 
@@ -62,17 +60,15 @@ class PostController extends Controller
 
     $post = $this->postRepository->create($data);
 
-    if ($request->hasFile('cover')) {
-      $cover = $request->file('cover')->store('blog/posts', 'public');
-
-      $post->cover()->create(['url' => $cover]);
-    }
+    $this->postRepository->createCover($request, $post);
 
     $this->postRepository->findOrCreateTagsAndSyncPost($request, $post);
 
-    return response()->json([
-      'data' => $post,
-    ], Response::HTTP_CREATED);
+    $post = $post->load(['cover', 'tags']);
+
+    return (new PostResource($post))
+      ->response()
+      ->setStatusCode(Response::HTTP_CREATED);
   }
 
   /**
@@ -130,24 +126,5 @@ class PostController extends Controller
     Storage::disk('public')->delete($post->cover->url);
 
     return response()->json([], Response::HTTP_NO_CONTENT);
-  }
-
-  public function updateStatus(UpdateStatusPostRequest $request, string $postId): JsonResponse
-  {
-    $post = $this->postRepository->find($postId);
-
-    match ($request->get('status')) {
-      PostEnum::APPROVED,
-      PostEnum::ARCHIVED,
-      PostEnum::DRAFTED,
-      PostEnum::REJECTED,
-      PostEnum::SUBMITTED => $this->postRepository->update($post, ['status' => $request->get('status'), 'published_at' => null]),
-
-      PostEnum::PUBLISHED => $this->postRepository->update($post, ['status' => PostEnum::PUBLISHED, 'published_at' => now()]),
-    };
-
-    return response()->json([
-      'data' => $post,
-    ], Response::HTTP_OK);
   }
 }

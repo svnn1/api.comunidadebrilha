@@ -42,26 +42,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api'
     Route::match(['patch', 'put'], '/{userId}', [Admin\UserController::class, 'update'])->name('update');
     Route::delete('/{userId}', [Admin\UserController::class, 'destroy'])->name('destroy');
   });
-});
 
-Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
-  Route::group(['prefix' => 'posts', 'as' => 'post.',], function () {
-    Route::get('/', [Admin\Blog\PostController::class, 'index'])->name('index');
-    Route::post('/', [Admin\Blog\PostController::class, 'store'])->name('store');
-    Route::get('/{postId}', [Admin\Blog\PostController::class, 'show'])->name('show');
-    Route::match(['patch', 'put'], '/{postId}', [Admin\Blog\PostController::class, 'update'])->name('update');
-    Route::delete('/{postId}', [Admin\Blog\PostController::class, 'destroy'])->name('destroy');
+  Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
+    Route::group(['prefix' => 'posts', 'as' => 'post.',], function () {
+      Route::get('/', [Admin\Blog\PostController::class, 'index'])->name('index');
+      Route::post('/', [Admin\Blog\PostController::class, 'store'])->name('store');
+      Route::get('/{postId}', [Admin\Blog\PostController::class, 'show'])->name('show');
+      Route::match(['patch', 'put'], '/{postId}', [Admin\Blog\PostController::class, 'update'])->name('update');
+      Route::delete('/{postId}', [Admin\Blog\PostController::class, 'destroy'])->name('destroy');
 
 
-    Route::patch('/{postId}/status', [Admin\Blog\PostController::class, 'updateStatus'])->name('updateStatus');
-  });
+      Route::match(['patch', 'put'], '/{postId}/status', [Admin\Blog\PostStatusController::class, 'update'])->name('status.update');
+    });
 
-  Route::group(['prefix' => 'categories', 'as' => 'category.',], function () {
-    Route::get('/', [Admin\Blog\CategoryController::class, 'index'])->name('index');
-  });
+    Route::group(['prefix' => 'categories', 'as' => 'category.',], function () {
+      Route::get('/', [Admin\Blog\CategoryController::class, 'index'])->name('index');
+    });
 
-  Route::group(['prefix' => 'tags', 'as' => 'tag.',], function () {
-    Route::get('/', [Admin\Blog\TagController::class, 'index'])->name('index');
-    Route::get('/{tagId}', [Admin\Blog\TagController::class, 'show'])->name('show');
+    Route::group(['prefix' => 'tags', 'as' => 'tag.',], function () {
+      Route::get('/', [Admin\Blog\TagController::class, 'index'])->name('index');
+      Route::get('/{tagId}', [Admin\Blog\TagController::class, 'show'])->name('show');
+    });
   });
 });
