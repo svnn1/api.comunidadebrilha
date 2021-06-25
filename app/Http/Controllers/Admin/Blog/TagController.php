@@ -37,6 +37,12 @@ class TagController extends Controller
     ], Response::HTTP_OK);
   }
 
+  /**
+   * @param string $tagId
+   *
+   * @return \Illuminate\Http\JsonResponse
+   * @throws \Illuminate\Contracts\Container\BindingResolutionException
+   */
   public function show(string $tagId)
   {
     $tag = $this->tagRepository->find($tagId);
