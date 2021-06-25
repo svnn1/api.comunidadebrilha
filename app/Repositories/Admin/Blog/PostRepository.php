@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 use App\Contracts\Repositories\Admin\Blog as Contracts;
 
 /**
@@ -59,11 +60,11 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
    */
   public function updateCover(Request $request, Model $model): void
   {
-    if (isset($model->cover->url) && Storage::disk('public')->exists($model->cover->url)) {
-      Storage::disk('public')->delete($model->cover->url);
-    }
-
     if ($request->hasFile('cover')) {
+      if (isset($model->cover->url) && Storage::disk('public')->exists($model->cover->url)) {
+        Storage::disk('public')->delete($model->cover->url);
+      }
+
       $cover = $request->file('cover')->store('blog/posts', 'public');
 
       $model->cover()->update(['url' => $cover]);
