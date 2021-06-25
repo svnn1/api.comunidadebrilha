@@ -81,7 +81,7 @@ class PostController extends Controller
 
     return (new PostResource($post->load(['cover', 'tags'])))
       ->response()
-      ->setStatusCode(Response::HTTP_CREATED);
+      ->setStatusCode(Response::HTTP_OK);
   }
 
   /**
