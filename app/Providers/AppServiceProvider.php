@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
     Contracts\Admin\UserRepository::class           => Repositories\Admin\UserRepository::class,
     Contracts\Admin\Acl\RoleRepository::class       => Repositories\Admin\Acl\RoleRepository::class,
     Contracts\Admin\Acl\PermissionRepository::class => Repositories\Admin\Acl\PermissionRepository::class,
-    Contracts\Admin\Blog\PostRepository::class      => Repositories\Admin\Blog\PostRepository::class,
-    Contracts\Admin\Blog\TagRepository::class       => Repositories\Admin\Blog\TagRepository::class,
+    Contracts\Blog\PostRepository::class            => Repositories\Blog\PostRepository::class,
+    Contracts\Blog\TagRepository::class             => Repositories\Blog\TagRepository::class,
   ];
 
   /**

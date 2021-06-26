@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Repositories\Admin\Blog;
+namespace App\Contracts\Repositories\Blog;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use App\Contracts\Repositories\BaseRepository;
 /**
  * Interface PostRepository
  *
- * @package App\Contracts\Repositories\Admin\Blog
+ * @package App\Contracts\Repositories\Blog
  */
 interface PostRepository extends BaseRepository
 {

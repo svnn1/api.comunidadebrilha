@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Admin\Blog;
+namespace App\Repositories\Blog;
 
 use App\Models\Blog\Tag;
 use App\Models\Blog\Post;
@@ -8,13 +8,12 @@ use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Builder;
-use App\Contracts\Repositories\Admin\Blog as Contracts;
+use App\Contracts\Repositories\Blog as Contracts;
 
 /**
  * Class PostRepository
  *
- * @package App\Repositories\Admin\Blog
+ * @package App\Repositories\Blog
  */
 class PostRepository extends BaseRepository implements Contracts\PostRepository
 {
@@ -53,25 +52,6 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
   }
 
   /**
-   * Update cover for post.
-   *
-   * @param \Illuminate\Http\Request            $request
-   * @param \Illuminate\Database\Eloquent\Model $model
-   */
-  public function updateCover(Request $request, Model $model): void
-  {
-    if ($request->hasFile('cover')) {
-      if (isset($model->cover->url) && Storage::disk('public')->exists($model->cover->url)) {
-        Storage::disk('public')->delete($model->cover->url);
-      }
-
-      $cover = $request->file('cover')->store('blog/posts', 'public');
-
-      $model->cover()->update(['url' => $cover]);
-    }
-  }
-
-  /**
    * Find or create new tags and sync with post.
    *
    * @param \Illuminate\Http\Request            $request
@@ -89,6 +69,25 @@ class PostRepository extends BaseRepository implements Contracts\PostRepository
       }
 
       $model->tags()->sync($tags);
+    }
+  }
+
+  /**
+   * Update cover for post.
+   *
+   * @param \Illuminate\Http\Request            $request
+   * @param \Illuminate\Database\Eloquent\Model $model
+   */
+  public function updateCover(Request $request, Model $model): void
+  {
+    if ($request->hasFile('cover')) {
+      if (isset($model->cover->url) && Storage::disk('public')->exists($model->cover->url)) {
+        Storage::disk('public')->delete($model->cover->url);
+      }
+
+      $cover = $request->file('cover')->store('blog/posts', 'public');
+
+      $model->cover()->update(['url' => $cover]);
     }
   }
 }
