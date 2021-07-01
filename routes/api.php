@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Blog;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,11 +56,30 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api'
       Route::match(['patch', 'put'], '/{postId}/status', [Admin\Blog\PostStatusController::class, 'update'])->name('status.update');
 
       Route::post('/{postId}/cover', [Admin\Blog\PostCoverController::class, 'update'])->name('cover.update');
+
+      Route::post('wysiwyg/upload', [Admin\Blog\WysiwygController::class, 'store'])->name('wysiwyg.store');
     });
 
     Route::group(['prefix' => 'tags', 'as' => 'tag.',], function () {
       Route::get('/', [Admin\Blog\TagController::class, 'index'])->name('index');
       Route::get('/{tagId}', [Admin\Blog\TagController::class, 'show'])->name('show');
     });
+  });
+});
+
+
+Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
+  Route::group(['prefix' => 'posts', 'as' => 'post.'], function () {
+    Route::get('/', [Blog\PostController::class, 'index'])->name('index');
+    Route::get('/{postSlug}', [Blog\PostController::class, 'show'])->name('show');
+  });
+
+  Route::group(['prefix' => 'tags', 'as' => 'tag.',], function () {
+    Route::get('/', [Admin\Blog\TagController::class, 'index'])->name('index');
+    Route::get('/{tagSlug}', [Admin\Blog\TagController::class, 'show'])->name('show');
+  });
+
+  Route::group(['prefix' => 'author', 'as' => 'author.',], function () {
+    Route::get('/{authorId}', [Blog\AuthorController::class, 'show'])->name('show');
   });
 });
