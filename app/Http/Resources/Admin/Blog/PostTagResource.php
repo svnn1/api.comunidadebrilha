@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Admin\Blog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class PostAuthorResource
+ * Class PostTagResource
  *
- * @package App\Http\Resources\Blog
+ * @package App\Http\Resources\Admin\Blog
  */
-class PostAuthorResource extends JsonResource
+class PostTagResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -21,9 +21,10 @@ class PostAuthorResource extends JsonResource
   public function toArray($request): array
   {
     return [
+      'id'    => (string) $this->id,
       'name'  => (string) $this->name,
-      'links' => (array) [
-        'self' => 'todo',
+      'links' => [
+        'self' => route('admin.blog.tag.show', $this->id),
       ],
     ];
   }

@@ -5,11 +5,11 @@ namespace App\Http\Resources\Blog;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class PostTagResource
+ * Class AuthorResource
  *
  * @package App\Http\Resources\Blog
  */
-class PostTagResource extends JsonResource
+class AuthorResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -21,10 +21,11 @@ class PostTagResource extends JsonResource
   public function toArray($request): array
   {
     return [
-      'id'    => (string) $this->id,
-      'name'  => (string) $this->name,
+      'id'    => $this->id,
+      'name'  => $this->name,
+      'posts' => PostResource::collection($this->whenLoaded('posts', $this->publishedPosts()->get())),
       'links' => [
-        'self' => route('blog.tag.show', $this->id),
+        'self' => route('blog.author.show', $this->id),
       ],
     ];
   }

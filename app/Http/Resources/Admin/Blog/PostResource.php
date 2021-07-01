@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Admin\Blog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class PostResource
+ *
+ * @package App\Http\Resources\Admin\Blog
+ */
 class PostResource extends JsonResource
 {
   /**
@@ -20,11 +25,11 @@ class PostResource extends JsonResource
       'title'   => $this->title,
       'summary' => $this->summary,
       'content' => $this->content,
+      'author'  => new PostAuthorResource($this->whenLoaded('author')),
       'cover'   => new CoverResource($this->whenLoaded('cover')),
-      'author'  => new AuthorResource($this->whenLoaded('author')),
       'tags'    => PostTagResource::collection($this->whenLoaded('tags')),
       'links'   => [
-        'self' => route('blog.post.show', $this->slug),
+        'self' => route('admin.blog.post.show', $this->slug),
       ],
     ];
   }

@@ -5,6 +5,7 @@ namespace App\Models\Blog;
 use App\Models\User;
 use App\Traits\GenerateUuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,6 +50,16 @@ class Post extends Model
   protected $fillable = [
     'title', 'summary', 'content', 'status', 'user_id', 'published_at',
   ];
+
+  /**
+   * @param \Illuminate\Database\Eloquent\Builder $query
+   *
+   * @return \Illuminate\Database\Eloquent\Builder
+   */
+  public function scopePublished(Builder $query): Builder
+  {
+    return $query->where('status', '=', 'published')->where('published_at', '!=', null);
+  }
 
   /**
    * Get the post's author.

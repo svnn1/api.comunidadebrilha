@@ -5,11 +5,11 @@ namespace App\Http\Requests\Admin\Blog\Post;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class UpdateStatusPostRequest
+ * Class UpdatePostCoverRequest
  *
  * @package App\Http\Requests\Admin\Blog\Post
  */
-class UpdateStatusPostRequest extends FormRequest
+class UpdatePostCoverRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class UpdateStatusPostRequest extends FormRequest
   public function rules()
   {
     return [
-      'status' => 'required|string|in:approved,archived,drafted,published,rejected,submitted',
+      'cover' => 'required|image|mimes:jpg,jpeg,png,svg',
     ];
   }
 }

@@ -109,6 +109,14 @@ interface BaseRepository
   public function deleteCollection(Collection $collection): void;
 
   /**
+   * @param array $relations
+   *
+   * @return \Illuminate\Database\Eloquent\Builder
+   * @throws \Illuminate\Contracts\Container\BindingResolutionException
+   */
+  public function withRelationships(array $relations): Builder;
+
+  /**
    * Create a new instance to populate the model with an array of attributes in a given model.
    *
    * @param array $data
