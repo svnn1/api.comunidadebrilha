@@ -74,6 +74,16 @@ class User extends Authenticatable implements JWTSubject
   ];
 
   /**
+   * Get all of the posts published for the user.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function scopePublishedPosts(): HasMany
+  {
+    return $this->posts()->where('status', '=', 'published')->where('published_at', '!=', null);
+  }
+
+  /**
    * Get all of the posts for the user.
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany
