@@ -32,6 +32,14 @@ class VerificationControllerTest extends TestCase
     $this->assertFalse($otherUser->fresh()->hasVerifiedEmail());
   }
 
+  private function validVerificationVerifyRoute(User $user): string
+  {
+    return URL::signedRoute('verification.verify', [
+      'user' => $user,
+      'hash' => sha1($user->getEmailForVerification()),
+    ]);
+  }
+
   public function testForbiddenIsReturnedWhenSignatureIsInvalidInVerificationVerifyRoute(): void
   {
     $user = User::factory()->create([
@@ -41,6 +49,14 @@ class VerificationControllerTest extends TestCase
     $this->actingAs($user, 'api')
       ->get($this->invalidVerificationVerifyRoute($user))
       ->assertStatus(Response::HTTP_FORBIDDEN);
+  }
+
+  private function invalidVerificationVerifyRoute(User $user): string
+  {
+    return route('verification.verify', [
+      'user' => $user,
+      'hash' => 'invalid-hash',
+    ]);
   }
 
   public function testUserCanVerifyYourself(): void
@@ -62,6 +78,11 @@ class VerificationControllerTest extends TestCase
       ->assertStatus(Response::HTTP_UNAUTHORIZED);
   }
 
+  private function verificationResendRoute(): string
+  {
+    return route('verification.resend');
+  }
+
   public function testUserCanResendAVerificationEmail(): void
   {
     Notification::fake();
@@ -74,26 +95,5 @@ class VerificationControllerTest extends TestCase
       ->get($this->verificationResendRoute());
 
     Notification::assertSentTo($user, VerifyEmail::class);
-  }
-
-  private function validVerificationVerifyRoute(User $user): string
-  {
-    return URL::signedRoute('verification.verify', [
-      'userId' => $user->id,
-      'hash'   => sha1($user->getEmailForVerification()),
-    ]);
-  }
-
-  private function invalidVerificationVerifyRoute(User $user): string
-  {
-    return route('verification.verify', [
-      'userId' => $user->id,
-      'hash'   => 'invalid-hash',
-    ]);
-  }
-
-  private function verificationResendRoute(): string
-  {
-    return route('verification.resend');
   }
 }

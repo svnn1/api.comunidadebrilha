@@ -28,7 +28,6 @@ class AuthorController extends Controller
   {
     $author = $this->authorRepository->find($authorId);
 
-
     return new AuthorResource($author->load('posts'));
   }
 }

@@ -31,7 +31,7 @@ class VerificationController extends Controller
    */
   public function verify(Request $request): JsonResponse
   {
-    if ($request->route('userId') != $request->user()->getKey()) {
+    if ($request->route('user') != $request->user()->getKey()) {
       throw new AuthorizationException;
     }
 
