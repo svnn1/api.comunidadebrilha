@@ -10,6 +10,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Mehradsadeghi\FilterQueryString\FilterQueryString;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  */
 class Post extends Model
 {
-  use GenerateUuid, HasFactory, Sluggable;
+  use FilterQueryString, GenerateUuid, HasFactory, Sluggable;
 
   /**
    * Indicates if the IDs are auto-incrementing.
@@ -49,6 +50,10 @@ class Post extends Model
    */
   protected $fillable = [
     'title', 'summary', 'content', 'status', 'user_id', 'published_at',
+  ];
+
+  protected $filters = [
+    'like', 'in', 'sort',
   ];
 
   /**
