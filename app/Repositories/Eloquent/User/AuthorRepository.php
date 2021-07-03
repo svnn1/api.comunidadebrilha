@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Blog;
+namespace App\Repositories\Eloquent\User;
 
 use App\Models\User;
-use App\Repositories\BaseRepository;
-use App\Contracts\Repositories\Blog as Contracts;
+use App\Repositories\Eloquent\BaseRepository;
+use App\Repositories\Contracts\User as Contracts;
 
 /**
  * Class AuthorRepository
  *
- * @package App\Repositories\Blog
+ * @package App\Repositories\Eloquent\User
  */
 class AuthorRepository extends BaseRepository implements Contracts\AuthorRepository
 {

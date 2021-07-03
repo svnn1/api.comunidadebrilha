@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Blog\PostResource;
-use App\Contracts\Repositories\Blog\PostRepository;
+use App\Repositories\Contracts\Blog\PostRepository;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
@@ -15,15 +15,10 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class PostController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Blog\PostRepository
+   * @var \App\Repositories\Contracts\Blog\PostRepository
    */
   private PostRepository $postRepository;
 
-  /**
-   * PostController constructor.
-   *
-   * @param \App\Contracts\Repositories\Blog\PostRepository $postRepository
-   */
   public function __construct(PostRepository $postRepository)
   {
     $this->postRepository = $postRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Repositories;
+namespace App\Repositories\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * Interface BaseRepository
  *
- * @package App\Contracts\Repositories
+ * @package App\Repositories\Contracts
  */
 interface BaseRepository
 {

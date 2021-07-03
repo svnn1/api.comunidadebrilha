@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Blog;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\Blog\PostRepository;
+use App\Repositories\Contracts\Blog\PostRepository;
 use App\Http\Requests\Admin\Blog\Post\UpdatePostCoverRequest;
 
 /**
@@ -17,7 +17,7 @@ class PostCoverController extends Controller
 {
   //TODO: Não sei se cover é um bom nome, estou pensando em alterar, só não o que colocar ainda...
   /**
-   * @var \App\Contracts\Repositories\Blog\PostRepository
+   * @var \App\Repositories\Contracts\Blog\PostRepository
    */
   private PostRepository $postRepository;
 
