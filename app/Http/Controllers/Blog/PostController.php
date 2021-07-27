@@ -33,7 +33,10 @@ class PostController extends Controller
     $posts = $this->postRepository->findWhere([
       'status' => 'published',
       ['published_at', '!=', null],
-    ])->with(['author', 'cover', 'tags'])->filter()->orderByDesc('published_at')->paginate();
+    ])->with(['author', 'cover', 'tags'])
+      ->filter()
+      ->orderByDesc('published_at')
+      ->paginate();
 
     return PostResource::collection($posts);
   }

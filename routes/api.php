@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api'
       Route::delete('/{post:id}', [Admin\Blog\PostController::class, 'destroy'])->name('destroy');
 
 
-      Route::match(['patch', 'put'], '/{postId}/status', [Admin\Blog\PostStatusController::class, 'update'])->name('status.update');
+      Route::match(['patch', 'put'], '/{post:id}/status', [Admin\Blog\PostStatusController::class, 'update'])->name('status.update');
 
       Route::post('/{post:id}/cover', [Admin\Blog\PostCoverController::class, 'update'])->name('cover.update');
 
