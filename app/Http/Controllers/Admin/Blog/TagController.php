@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Blog;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\Blog\TagRepository;
+use App\Repositories\Contracts\Blog\TagRepository;
 
 /**
  * Class TagController
@@ -15,7 +15,7 @@ use App\Contracts\Repositories\Blog\TagRepository;
 class TagController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Blog\TagRepository
+   * @var \App\Repositories\Contracts\Blog\TagRepository
    */
   private TagRepository $tagRepository;
 

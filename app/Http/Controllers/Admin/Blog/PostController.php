@@ -7,9 +7,9 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Admin\Blog\PostResource;
+use App\Repositories\Contracts\Blog\PostRepository;
 use App\Http\Requests\Admin\Blog\Post\StorePostRequest;
 use App\Http\Requests\Admin\Blog\Post\UpdatePostRequest;
-use App\Contracts\Repositories\Blog\PostRepository;
 
 /**
  * Class PostController
@@ -19,7 +19,7 @@ use App\Contracts\Repositories\Blog\PostRepository;
 class PostController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Blog\PostRepository
+   * @var \App\Repositories\Contracts\Blog\PostRepository
    */
   private PostRepository $postRepository;
 

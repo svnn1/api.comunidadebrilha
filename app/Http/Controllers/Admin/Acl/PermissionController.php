@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Acl\StorePermissionRequest;
 use App\Http\Requests\Admin\Acl\UpdatePermissionRequest;
-use App\Contracts\Repositories\Admin\Acl\PermissionRepository;
+use App\Repositories\Contracts\Acl\PermissionRepository;
 
 /**
  * Class PermissionController
@@ -17,7 +17,7 @@ use App\Contracts\Repositories\Admin\Acl\PermissionRepository;
 class PermissionController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Admin\Acl\PermissionRepository
+   * @var \App\Repositories\Contracts\Acl\PermissionRepository
    */
   private PermissionRepository $permissionRepository;
 

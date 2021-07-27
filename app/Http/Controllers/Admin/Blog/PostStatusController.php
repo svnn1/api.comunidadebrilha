@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Enums\Admin\Blog\PostEnum;
 use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\Blog\PostRepository;
+use App\Repositories\Contracts\Blog\PostRepository;
 use App\Http\Requests\Admin\Blog\Post\UpdateStatusPostRequest;
 
 /**
@@ -17,7 +17,7 @@ use App\Http\Requests\Admin\Blog\Post\UpdateStatusPostRequest;
 class PostStatusController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Blog\PostRepository
+   * @var \App\Repositories\Contracts\Blog\PostRepository
    */
   private PostRepository $postRepository;
 

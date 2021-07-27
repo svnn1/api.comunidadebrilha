@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Acl\StoreRoleRequest;
 use App\Http\Requests\Admin\Acl\UpdateRoleRequest;
-use App\Contracts\Repositories\Admin\Acl\RoleRepository;
+use App\Repositories\Contracts\Acl\RoleRepository;
 
 /**
  * Class RoleController
@@ -17,7 +17,7 @@ use App\Contracts\Repositories\Admin\Acl\RoleRepository;
 class RoleController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Admin\Acl\RoleRepository
+   * @var \App\Repositories\Contracts\Acl\RoleRepository
    */
   private RoleRepository $roleRepository;
 

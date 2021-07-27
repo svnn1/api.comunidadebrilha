@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Admin\Acl;
+namespace App\Repositories\Eloquent\Acl;
 
 use App\Models\Admin\Acl\Role;
-use App\Repositories\BaseRepository;
-use App\Contracts\Repositories\Admin\Acl as Contracts;
+use App\Repositories\Eloquent\BaseRepository;
+use App\Repositories\Contracts\Acl as Contracts;
 
 /**
  * Class RoleRepository
  *
- * @package App\Repositories\Admin\Acl
+ * @package App\Repositories\Eloquent\Acl
  */
 class RoleRepository extends BaseRepository implements Contracts\RoleRepository
 {

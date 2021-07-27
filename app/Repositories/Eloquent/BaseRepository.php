@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use App\Contracts\Repositories\BaseRepository as BaseRepositoryContract;
+use App\Repositories\Contracts as Contracts;
 
 /**
  * Class BaseRepository
  *
- * @package App\Repositories
+ * @package App\Repositories\Eloquent
  */
-abstract class BaseRepository implements BaseRepositoryContract
+abstract class BaseRepository implements Contracts\BaseRepository
 {
   /**
    * Model class for repository.

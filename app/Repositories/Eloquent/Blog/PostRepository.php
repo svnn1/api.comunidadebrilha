@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Repositories\Blog;
+namespace App\Repositories\Eloquent\Blog;
 
 use App\Models\Blog\Tag;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
-use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use App\Contracts\Repositories\Blog as Contracts;
+use App\Repositories\Eloquent\BaseRepository;
+use App\Repositories\Contracts\Blog as Contracts;
 
 /**
  * Class PostRepository
  *
- * @package App\Repositories\Blog
+ * @package App\Repositories\Eloquent\Blog
  */
 class PostRepository extends BaseRepository implements Contracts\PostRepository
 {

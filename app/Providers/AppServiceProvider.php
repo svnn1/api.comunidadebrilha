@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Repositories as Repositories;
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\Repositories as Contracts;
+use App\Repositories\Contracts as Contracts;
+use App\Repositories\Eloquent as Repositories;
 
 /**
  * Class AppServiceProvider
@@ -19,13 +19,13 @@ class AppServiceProvider extends ServiceProvider
    * @var array
    */
   public array $bindings = [
-    Contracts\BaseRepository::class                 => Repositories\BaseRepository::class,
-    Contracts\Admin\UserRepository::class           => Repositories\Admin\UserRepository::class,
-    Contracts\Admin\Acl\RoleRepository::class       => Repositories\Admin\Acl\RoleRepository::class,
-    Contracts\Admin\Acl\PermissionRepository::class => Repositories\Admin\Acl\PermissionRepository::class,
-    Contracts\Blog\AuthorRepository::class          => Repositories\Blog\AuthorRepository::class,
-    Contracts\Blog\PostRepository::class            => Repositories\Blog\PostRepository::class,
-    Contracts\Blog\TagRepository::class             => Repositories\Blog\TagRepository::class,
+    Contracts\BaseRepository::class           => Repositories\BaseRepository::class,
+    Contracts\User\UserRepository::class      => Repositories\User\UserRepository::class,
+    Contracts\User\AuthorRepository::class    => Repositories\User\AuthorRepository::class,
+    Contracts\Acl\RoleRepository::class       => Repositories\Acl\RoleRepository::class,
+    Contracts\Acl\PermissionRepository::class => Repositories\Acl\PermissionRepository::class,
+    Contracts\Blog\PostRepository::class      => Repositories\Blog\PostRepository::class,
+    Contracts\Blog\TagRepository::class       => Repositories\Blog\TagRepository::class,
   ];
 
   /**

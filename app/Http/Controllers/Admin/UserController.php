@@ -6,8 +6,8 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\StoreUserRequest;
+use App\Repositories\Contracts\User\UserRepository;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
-use App\Contracts\Repositories\Admin\UserRepository;
 
 /**
  * Class UserController
@@ -17,7 +17,7 @@ use App\Contracts\Repositories\Admin\UserRepository;
 class UserController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Admin\UserRepository
+   * @var \App\Repositories\Contracts\User\UserRepository
    */
   private UserRepository $userRepository;
 

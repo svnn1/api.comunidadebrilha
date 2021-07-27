@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Contracts\Repositories\Blog;
+namespace App\Repositories\Contracts\Blog;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use App\Contracts\Repositories\BaseRepository;
+use App\Repositories\Contracts\BaseRepository;
 
 /**
  * Interface PostRepository
  *
- * @package App\Contracts\Repositories\Blog
+ * @package App\Repositories\Contracts\Blog
  */
 interface PostRepository extends BaseRepository
 {

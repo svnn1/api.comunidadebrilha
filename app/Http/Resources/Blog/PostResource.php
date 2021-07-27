@@ -16,14 +16,24 @@ class PostResource extends JsonResource
   public function toArray($request): array
   {
     return [
-      'id'      => $this->id,
-      'title'   => $this->title,
-      'summary' => $this->summary,
-      'content' => $this->content,
-      'cover'   => new CoverResource($this->whenLoaded('cover')),
-      'author'  => new AuthorResource($this->whenLoaded('author')),
-      'tags'    => PostTagResource::collection($this->whenLoaded('tags')),
-      'links'   => [
+      'id'           => $this->id,
+      'title'        => $this->title,
+      'summary'      => $this->summary,
+      'content'      => $this->content,
+      'cover'        => [
+        'id'  => $this->cover->id,
+        'url' => asset("storage/{$this->cover->url}"),
+      ],
+      'author'       => [
+        'id'    => $this->author->id,
+        'name'  => $this->author->name,
+        'links' => [
+          'self' => route('blog.author.show', $this->author->id),
+        ],
+      ],
+      'tags'         => PostTagResource::collection($this->whenLoaded('tags')),
+      'published_at' => $this->published_at,
+      'links'        => [
         'self' => route('blog.post.show', $this->slug),
       ],
     ];

@@ -16,6 +16,7 @@
     "itsgoingd/clockwork": "^5.0",
     "laravel/framework": "^8.40",
     "laravel/tinker": "^2.5",
+    "mehradsadeghi/laravel-filter-querystring": "^1.1",
     "spatie/laravel-permission": "^4.0",
     "tymon/jwt-auth": "^1.0"
   },

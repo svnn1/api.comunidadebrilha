@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Blog\PostResource;
 use App\Http\Resources\Blog\AuthorResource;
-use App\Contracts\Repositories\Blog\PostRepository;
-use App\Contracts\Repositories\Blog\AuthorRepository;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Repositories\Contracts\User\AuthorRepository;
 
 /**
  * Class UserController
@@ -18,7 +14,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class AuthorController extends Controller
 {
   /**
-   * @var \App\Contracts\Repositories\Blog\AuthorRepository
+   * @var \App\Repositories\Contracts\User\AuthorRepository
    */
   private AuthorRepository $authorRepository;
 
@@ -30,7 +26,6 @@ class AuthorController extends Controller
   public function show(string $authorId)
   {
     $author = $this->authorRepository->find($authorId);
-
 
     return new AuthorResource($author->load('posts'));
   }
